@@ -1,0 +1,81 @@
+/*
+ * 函数名: playChess()
+ * 函数功能: 检查当前位置是否可下棋,如果可下则下
+ * 参数: 1.游戏数据; 2.玩家;
+ *       3.下棋横坐标; 4.下棋的纵坐标
+ * 返回值: 成功下棋返回1,失败返回0
+*/
+int playChess(int data[ROW][COL], int player, int x, int y)
+{
+    /* 检查可否下棋 */
+    if (checkDown(data,x,y) == 1)
+    {
+        /* 能下则下 */
+    data[y][x] = player;
+    return 1;
+    }
+    return 0;
+}
+
+/*
+ * 函数名: getInput()
+ * 功能描述: 获取用户输入
+ * 参数: 无
+ * 返回值: 用户输入所对应的整型值
+*/
+int getInput(void)
+{
+    int key;
+    char ch;
+    ch = getchar();
+    /* 方向键 */
+    if (ch=='\033' && getchar()=='[')
+    {
+        ch = getchar();
+    switch (ch)
+    {
+       case 'A': key = UP;    break;
+       case 'B': key = DOWN;  break;
+       case 'C': key = RIGHT; break;
+       case 'D': key = LEFT;  break;
+    }
+    }
+    /* 确认键 */
+    else if (ch == '\n')
+    {
+        key = ENTER;
+    }
+    /* 退出键 */
+    else if (ch == 'q')
+    {
+        key = QUIT;
+    }
+    /* 其它键 */
+    else
+key = UNKNOW;
+
+    return key;
+}
+
+/*
+ * 函数名: checkDown()
+ * 功能描述: 检查棋子在当前位置能否下棋
+ * 参数: 1.游戏数据; 2.棋子的横坐标; 3.棋子的纵坐标
+ * 返回值: 可以下返回1,否则返回0
+*/
+int checkDown(int data[ROW][COL], int x, int y)
+{
+    if (data[y][x] == Bg)
+    {
+        return 1;
+    }
+    else    // 如果不能下则提示不能下
+    {
+        printf(" \033[s\033[33m此处已有棋!\033[0m\n");
+        sleep(1);                // 等待1秒钟
+        printf("\033[u\033[K");  // 清除提示信息
+        return 0;
+    }
+}
+
+
