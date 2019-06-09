@@ -1,0 +1,113 @@
+int checkWin(int data[ROW][COL], int x, int y, int player)
+{
+    int i, j;
+    int count = 0;
+    int isWin = 0;
+
+    /* 水平方向 */
+    for (i = x-4; i <= x+4; i++)
+    {
+        /* 检查越界 */
+    	if (i < 0 || i > COL-1)
+    	{
+    	    continue;
+    	}
+	    /* 棋子计数 */
+    	if (data[y][i] == player)
+    	{
+    	    count++;
+    	    if (count == 5)
+    	    {
+    	        isWin = 1;
+    		    return isWin;
+    	    }
+    	}
+    	else
+    	{
+    	    /* 清零重新计数 */
+    	    count = 0;
+    	}
+    }
+
+    count = 0;  // 必须清零
+
+    /* 垂直方向 */
+    for (j = y-4; j <= y+4; j++)
+    {
+	    /* 检查越界 */
+        if (j < 0 || j > ROW-1)
+    	{
+    	    continue;
+    	}
+    	/* 棋子计数 */
+    	if (data[j][x] == player)
+    	{
+    	    count++;
+    	    if (count == 5)
+    	    {
+    	        isWin = 1;
+    		return isWin;
+    	    }
+    	}
+    	else
+    	{
+    	    /* 清零重新计数 */
+    	    count = 0;
+    	}
+    }
+
+    count = 0;  // 必须清零
+
+    /* 斜线方向 */
+    for (i=x-4,j=y+4; i<=x+4&&j>=0; i++,j--)
+    {
+	    /* 越界检查 */
+        if (x<0 || x>COL-1 || y<0 || y>ROW-1)
+    	{
+    	    continue;
+    	}
+    	/* 棋子计数 */
+    	if (data[j][i] == player)
+    	{
+    	    count++;
+    	    if (count == 5)
+    	    {
+    	        isWin = 1;
+    		return isWin;
+    	    }
+    	}
+    	else
+    	{
+            /* 清零以重新计数 */
+    	    count = 0;
+    	}
+    }
+    count = 0;
+    /* 反斜线方向 */
+    for (i=x-4,j=y-4; i<=x+4&&j<=y+4; i++,j++)
+    {
+        /* 越界检查 */
+	    if (x<0 || x>COL-1 || y<0 || y>ROW-1)
+    	{
+    	    continue;
+    	}
+    	/* 棋子计数 */
+    	if (data[j][i] == player)
+    	{
+    	    count++;
+    	    if (count == 5)
+    	    {
+    	        isWin = 1;
+    		    return isWin;
+    	    }
+    	}
+    	else
+    	{
+            /* 清零以重新计数 */
+    	    count = 0;
+    	}
+    }
+
+    return isWin;
+}
+
